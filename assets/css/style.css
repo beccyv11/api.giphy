@@ -32,3 +32,11 @@
     color: black;
     border-radius: 15px;
   }
+
+
+  #gifs-appear-here {
+    float: right;
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }

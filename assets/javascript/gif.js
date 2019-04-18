@@ -41,7 +41,7 @@ function renderButtons() {
 
   renderButtons();
 
-  $(".team").on("click", function() {
+  $(document).on("click",".team", function() {
     var sportsteam = $(this).attr("data-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportsteam + "&api_key=3QGN2O8Bws9dO6cv6z5FmzS3twWYL4ZZ&limit=10&offset=0&rating=PG-13&lang=en"
 
@@ -61,6 +61,7 @@ function renderButtons() {
 
           var teamImage = $("<img>");
           teamImage.attr("src", results[i].images.fixed_height.url);
+          teamImage.addClass("image");
 
           gifDiv.prepend(p);
           gifDiv.prepend(teamImage);

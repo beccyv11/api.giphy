@@ -37,6 +37,7 @@ function renderButtons() {
 
     // Calling renderButtons which handles the processing of our movie array
     renderButtons();
+
   });
 
   renderButtons();
@@ -51,6 +52,7 @@ function renderButtons() {
     })
       .then(function(response) {
         var results = response.data;
+        console.log(response);
 
         for (var i = 0; i < results.length; i++) {
           var gifDiv = $("<div>");
@@ -59,9 +61,18 @@ function renderButtons() {
 
           var p = $("<p>").text("Rating: " + rating);
 
+
+          var staticImage = results[i].images.fixed_height_still.url;
+          var animateImage= results[i].images.fixed_height.url;
           var teamImage = $("<img>");
-          teamImage.attr("src", results[i].images.fixed_height.url);
+          
+          teamImage.attr("src", staticImage);
           teamImage.addClass("image");
+          teamImage.attr("data-state", "still");
+          teamImage.attr("data-still", staticImage);
+          teamImage.attr("data-animate", animateImage);
+          
+
 
           gifDiv.prepend(p);
           gifDiv.prepend(teamImage);
@@ -69,4 +80,20 @@ function renderButtons() {
           $("#gifs-appear-here").prepend(gifDiv);
         }
       });
+  });
+
+  $(document).on("click", ".image", function() {
+
+    var state = $(this).attr("data-state");
+  
+    if (state == 'still'){
+      $(this).attr('src',$(this).data('animate'));
+      $(this).attr('data-state', 'animate');
+    }
+
+    if (state =='animate'){
+      $(this).attr('src', $(this).data('still'));
+      $(this).attr('data-state', 'still');
+    }
+   
   });
